@@ -6,9 +6,17 @@
 
 int main(int argc, char** argv)
 {
-	bool** graph01 = NULL;
-	graph01 = LoadGraph("graph01.txt");
-	PrintGraph(graph01, 5);
-	DeallocMemory(graph01, 5);
+	Graph graph01 = { .iGraph = NULL, .iVertices = 0, };
+	Graph graph02 = { .iGraph = NULL, .iVertices = 0, };
+
+	LoadGraph("graph01.txt", &graph01);
+	LoadGraph("graph02.txt", &graph02);
+
+	PrintGraph(&graph01);
+	PrintGraph(&graph02);
+
+	DeallocMemory(&graph01);
+	DeallocMemory(&graph02);
+
 	return 0;
 }

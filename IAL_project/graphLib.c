@@ -4,19 +4,20 @@
 /* -----
 ** Function for loading graph from text file
 ** aFileName - string representing name of file
+** aGraph - structure 
 **/
-bool** LoadGraph(char* aFileName)
+void LoadGraph(char* aFileName, Graph* aGraph)
 {
-	if(!aFileName)
+	if(!aFileName || !aGraph)
 		exit(1);
 	FILE* file = fopen(aFileName, "r");
 	if(!file)
 		exit(1);
-	size_t vertices = VerticesCount(file);
-	bool** graph = AllocMemory(vertices);
+	aGraph->iVertices = VerticesCount(file);
+	aGraph->iGraph = AllocMemory(aGraph->iVertices);
 	char ch = 0;
 	rewind(file);
-	for(size_t i = 0; i < vertices; i++)
+	for(size_t i = 0; i < aGraph->iVertices; i++)
 	{
 		fseek(file, 2, SEEK_CUR);
 		ch = fgetc(file);
@@ -25,13 +26,12 @@ bool** LoadGraph(char* aFileName)
 			if(ch != ',')
 			{
 				size_t num = ch - 48;
-				graph[i][num] = 1;
+				aGraph->iGraph[i][num] = 1;
 			}
 			ch = fgetc(file);
 		}
 	}
 	fclose(file);
-	return graph;
 }
 
 /* -----
@@ -76,31 +76,30 @@ bool** AllocMemory(size_t aVertices)
 
 /* -----
 ** Function for deallocation of memory
-** aGraph - 2D array
-** aVertices - number of vertices in graph
+** aGraph - structure
 **/
-void DeallocMemory(bool** aGraph, size_t aVertices)
+void DeallocMemory(Graph* aGraph)
 {
-	if(!aGraph)
+	if(!aGraph || !aGraph->iGraph)
 		exit(1);
-	for(size_t i = 0; i < aVertices; i++)
-		free(aGraph[i]);
-	free(aGraph);
+	for(size_t i = 0; i < aGraph->iVertices; i++)
+		free(aGraph->iGraph[i]);
+	free(aGraph->iGraph);
 }
 
-/*
-** Function for graph printing
-** aGraph - 2D array
-** aVertices - number of vertices in graph 
+/* -----
+** Function prints graph as adjacency matrix
+** aGraph - structure
 **/
-void PrintGraph(bool** aGraph, size_t aVertices)
+void PrintGraph(Graph* aGraph)
 {
-	if(!aGraph)
+	if(!aGraph || !aGraph->iGraph)
 		exit(1);
-	for(size_t i = 0; i < aVertices; i++)
+	for(size_t i = 0; i < aGraph->iVertices; i++)
 	{
-		for(size_t j = 0; j < aVertices; j++)
-			printf("%d ", aGraph[i][j]);
+		for(size_t j = 0; j < aGraph->iVertices; j++)
+			printf("%d ", aGraph->iGraph[i][j]);
 		printf("\n");
 	}
+	printf("\n");
 }

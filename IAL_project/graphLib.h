@@ -7,10 +7,16 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-bool** LoadGraph(char* aFileName);
+typedef struct TGraph
+{
+	bool** iGraph;
+	size_t iVertices;
+} Graph;
+
+void LoadGraph(char* aFileName, Graph* aGraph);
 size_t VerticesCount(FILE* aFile);
 bool** AllocMemory(size_t vertices);
-void DeallocMemory(bool** aGraph, size_t aVertices);
-void PrintGraph(bool** aGraph, size_t aVertices);
+void DeallocMemory(Graph* aGraph);
+void PrintGraph(Graph* aGraph);
 
 #endif
