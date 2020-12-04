@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "graphLib.h"
 #include "check.h"
+#include "cycle.h"
 
 
 int main(int argc, char** argv)
@@ -13,8 +14,14 @@ int main(int argc, char** argv)
 	LoadGraph("graph02.txt", &graph02);
 
 	PrintGraph(&graph01);
+    hamiltonianCycle(&graph01);
+    
+    
 	PrintGraph(&graph02);
+    hamiltonianCycle(&graph02);
 
+    
+    
 	DeallocMemory(&graph01);
 	DeallocMemory(&graph02);
 
