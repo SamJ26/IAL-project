@@ -6,7 +6,7 @@
 //
 #include "cycle.h"
 
-/* * * * * * * * * * * * * * * * * * * * * * * * *
+/* * * * * * * * * * * * * * * * * * * * * * * * *
  @function hamiltonianCycle
  
  Function that initializes 'n' and answer array 'x'
@@ -20,17 +20,16 @@
  cycles, so each one starts and ends in the same vertex.
  
  
-* * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * */
 void hamiltonianCycle(Graph* aGraph){
     int n = aGraph->iVertices;
     int x[n];
-    //mprintf("N : : : %lu",sizeof(x));
     x[0] = 0;
     hamiltonian(aGraph, 1, n, x);
     return;
 }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * *
+/* * * * * * * * * * * * * * * * * * * * * * * * *
  @function hamiltonian
  
  This function uses backtracking algorithm to find
@@ -42,25 +41,25 @@ void hamiltonianCycle(Graph* aGraph){
  is reached.
  
  
-* * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * */
 
 void hamiltonian(Graph* aGraph, int k, int n, int x[]){
     while(true){
         nextVertex(aGraph,k,n,x);
         if(x[k]==0) return;
         if(k==n-1){
-            printf("Hamiltonovský cyklus: \n");
+            printf("Nájdený hamiltonov cyklus:\n");
             for(int i=0;i<n;i++)
                printf("%d->",x[i]);
             printf("%d",x[0]);
-            printf("\n");
+            printf("\n\n");
         }else{
             hamiltonian(aGraph,k+1, n, x);
         }
     }
 }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * *
+/* * * * * * * * * * * * * * * * * * * * * * * * *
  @function nextVertex
  
  Function that checks validity of next vertex. First
@@ -79,17 +78,17 @@ void hamiltonian(Graph* aGraph, int k, int n, int x[]){
  for 'n' vertices graph : (n-1)!
  n! = O(n^n)
  
-* * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * */
 
 void nextVertex(Graph* aGraph, int k, int n, int x[]){
     while(true){
-        x[k]=(x[k]+1)%(n); //next value
+        x[k]=(x[k]+1)%(n+1); //next value
         if(x[k]==0) return;
         /* check for adjacency matrix edge*/
         if(aGraph->iGraph[x[k-1]][x[k]]!=0){
             int j;
             /*checking for duplicates within array*/
-            for(j=0;j<k;j++){
+            for(j=0;j<=k;j++){
                 if(x[k]==x[j]){
                     break;
                 }
