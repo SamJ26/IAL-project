@@ -22,10 +22,11 @@
  
 * * * * * * * * * * * * * * * * * * * * * * * * * */
 void hamiltonianCycle(Graph* aGraph){
-    int n = aGraph->iVertices;
-    int x[n];
-    x[0] = 0;
-    hamiltonian(aGraph, 1, n, x);
+    int* x = (int*)calloc(aGraph->iVertices, sizeof(int));
+    if(x == NULL)
+        exit(1);
+    hamiltonian(aGraph, 1, aGraph->iVertices, x);
+    free(x);
     return;
 }
 
@@ -43,7 +44,7 @@ void hamiltonianCycle(Graph* aGraph){
  
 * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-void hamiltonian(Graph* aGraph, int k, int n, int x[]){
+void hamiltonian(Graph* aGraph, int k, int n, int* x){
     while(true){
         nextVertex(aGraph,k,n,x);
         if(x[k]==0) return;
@@ -80,7 +81,7 @@ void hamiltonian(Graph* aGraph, int k, int n, int x[]){
  
 * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-void nextVertex(Graph* aGraph, int k, int n, int x[]){
+void nextVertex(Graph* aGraph, int k, int n, int* x){
     while(true){
         x[k]=(x[k]+1)%(n+1); //next value
         if(x[k]==0) return;

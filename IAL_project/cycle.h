@@ -15,8 +15,8 @@
 
 #endif /* cycle_h */
 
-void hamiltonian(Graph* aGraph,int k, int n, int *x);
-void nextVertex(Graph* aGraph,int k, int n, int X[]);
+void hamiltonian(Graph* aGraph,int k, int n, int* x);
+void nextVertex(Graph* aGraph,int k, int n, int* x);
 void hamiltonianCycle(Graph* aGraph);
 
 
