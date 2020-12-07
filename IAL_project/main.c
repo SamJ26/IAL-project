@@ -15,13 +15,10 @@ int main(int argc, char** argv)
 
 	PrintGraph(&graph01);
     hamiltonianCycle(&graph01);
-    
-    
+       
 	PrintGraph(&graph02);
     hamiltonianCycle(&graph02);
-
-    
-    
+     
 	DeallocMemory(&graph01);
 	DeallocMemory(&graph02);
 
