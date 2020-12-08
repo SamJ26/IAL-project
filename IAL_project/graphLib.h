@@ -1,3 +1,10 @@
+﻿/* graphLib.h
+ * Predmet: Algoritmy (IAL) - FIT VUT v Brne
+ * Autor: Samuel Janek
+ * Popis: Hlavičkový súbor pre graphLib.c (knižnica na načítvanie grafov z textových súborov)
+ * Vytvoril: Samuel Janek, 1.12.2020
+ */
+
 #ifndef _GRAPHLIB_H_
 #define _GRAPHLIB_H_
 

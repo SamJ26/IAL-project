@@ -1,3 +1,8 @@
+/* main.c
+ * Predmet: Algoritmy (IAL) - FIT VUT v Brne
+ * Popis: Vstupný bod programu (tu sú testované vytvorené knižnice)
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include "graphLib.h"
