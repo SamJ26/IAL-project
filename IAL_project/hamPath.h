@@ -1,3 +1,10 @@
+﻿/* hamPath.h
+ * Predmet: Algoritmy (IAL) - FIT VUT v Brne
+ * Autor: Marek Bahník
+ * Popis: Hlavičkový súbor pre hamPath.c (knižnica na hladanie hamiltonovej cesty)
+ * Vytvoril: Marek Bahník, 7.12.2020
+ */
+
 #ifndef _HAMPATH_H_
 #define _HAMPATH_H_
 
