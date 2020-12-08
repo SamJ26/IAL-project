@@ -16,8 +16,8 @@
 #include <string.h>
 #include "graphLib.h"
 
-void FindPath(Graph* aGraph, int start, int end);
+void FindPath(Graph* graph, int start, int end);
 bool is_done(int *arr, int i, int no_verts);
-void process_vertex(Graph* aGraph, int vert, int* arr_ptr, int vert_count, int* processed, int end);
+void process_vertex(Graph* graph, int vert, int* arr_ptr, int vert_count, int* processed, int end);
 
 #endif
