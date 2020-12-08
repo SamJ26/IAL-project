@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	PrintGraph(&graph02);
     hamiltonianCycle(&graph02);
 
-	FindPath(&graph02, 1, 3);
+	FindPath(&graph02, 1, 2);
      
 	DeallocMemory(&graph01);
 	DeallocMemory(&graph02);
