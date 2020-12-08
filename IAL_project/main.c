@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "graphLib.h"
-#include "check.h"
+#include "hamPath.h"
 #include "cycle.h"
+#include "check.h"
 
 
 int main(int argc, char** argv)
@@ -15,9 +16,13 @@ int main(int argc, char** argv)
 
 	PrintGraph(&graph01);
     hamiltonianCycle(&graph01);
+
+	FindPath(&graph01, 0, 4);
        
 	PrintGraph(&graph02);
     hamiltonianCycle(&graph02);
+
+	FindPath(&graph02, 1, 2);
      
 	DeallocMemory(&graph01);
 	DeallocMemory(&graph02);
