@@ -1,95 +1,76 @@
-// - --- - - - - - - - - - -- - - -
-//  cycle.c
-//  IAL
-//
-//  Created by Samuel Liska on 02/12/2020.
-//
+/* cycle.c
+ * Predmet: Algoritmy (IAL) - FIT VUT v Brne
+ * Autor: Samuel Líška
+ * Popis: Zdrojový kód pre cycle.h (knižnica na hladanie hamiltonovych cyklov)
+ * Vytvoril: Samuel Líška, 1.12.2020
+ * Upravil: Samuel Janek, 8.12.2020
+ */
 
 #include "cycle.h"
 #include "check.h"
 
-/* * * * * * * * * * * * * * * * * * * * * * * * *
- @function hamiltonianCycle
-
- Function that initializes 'n' and answer array 'x'
- that are being passed and used throught whole algorithm,
- and after that calls @function hamiltonian.
-
- @var n size of matrix
- @var x answer array
-
- x[0] is set to fixed '0' because we don't want duplicated hamilton
- cycles, so each one starts and ends in the same vertex.
-
-* * * * * * * * * * * * * * * * * * * * * * * * * */
-void hamiltonianCycle(Graph* aGraph) {
-	int* x = (int*)calloc(aGraph->iVertices, sizeof(int));
+/// <summary>
+/// Function that initializes answer array 'x'
+/// and after that calls function hamiltonian.
+/// </summary>
+/// <param name="graph"> - graph structure </param>
+void hamiltonianCycle(Graph* graph)
+{
+	int* x = (int*)calloc(graph->iVertices, sizeof(int));
 	if(x == NULL)
 		exit(1);
-	hamiltonian(aGraph, 1, aGraph->iVertices, x);
+	hamiltonian(graph, 1, graph->iVertices, x);
 	free(x);
 	return;
-	}
+}
 
-/* * * * * * * * * * * * * * * * * * * * * * * * *
- @function hamiltonian
-
- This function uses backtracking algorithm to find
- all possible hamiltonian cycles, within given graph.
-
- Calls for @function nextVertex to verify given vertex.
- If 'k' have reached last position print out answer.
- Else recursive call this function(k+1) until last position
- is reached.
-
-* * * * * * * * * * * * * * * * * * * * * * * * * */
-
-void hamiltonian(Graph* aGraph, int k, int n, int* x) {
+/// <summary>
+/// This function uses backtracking algorithm to find all possible hamiltonian cycles, within given graph.
+/// </summary>
+/// <param name="graph"> - graph structure </param>
+/// <param name="k"> - position is answer array </param>
+/// <param name="n"> - number of vertices </param>
+/// <param name="x"> - answer array </param>
+void hamiltonian(Graph* graph, int k, int n, int* x)
+{
 	while(true) {
-		nextVertex(aGraph, k, n, x);
-		if(x[k] == 0) return;
+		nextVertex(graph, k, n, x);
+		if(x[k] == 0)
+			return;
 		if(k == n - 1) {
 			printf("Found Hamiltonian cycle:\n");
 			for(int i = 0; i < n; i++)
 				printf("%d->", x[i]);
 			printf("%d", x[0]);
 			printf("\n\n");
-			}
+		}
 		else {
-			hamiltonian(aGraph, k + 1, n, x);
-			}
+			hamiltonian(graph, k + 1, n, x);
 		}
 	}
+}
 
-/* * * * * * * * * * * * * * * * * * * * * * * * *
- @function nextVertex
-
- Function that checks validity of next vertex. First
- it checks for duplicates in array(previous positions)
- after finding new value that doesn't appear in 'x' array
- it checks in adjacency for an edge.
-
- Algorithm logic:
- 1. Do not take duplicate
- 2. Whenever you take vertex, there should be an edge
- from the previous one.
- 3. If you are on the last vertex there should be an edge
- to the first one. If so there is an answer.
-
- Complexity:
- for 'n' vertices graph : (n-1)!
- n! = O(n^n)
-
-* * * * * * * * * * * * * * * * * * * * * * * * * */
-
-void nextVertex(Graph* aGraph, int k, int n, int* x) {
+/// <summary>
+/// Function that checks validity of next vertex.
+/// First it checks for duplicates in array(previous positions).
+/// After finding new value that doesn't appear in 'x' array it checks in adjacency for an edge.
+/// Complexity: n!
+/// </summary>
+/// <param name="graph"> - graph structure </param>
+/// <param name="k"> - position on answer array </param>
+/// <param name="n"> - number of vertices </param>
+/// <param name="x"> - answer array </param>
+void nextVertex(Graph* graph, int k, int n, int* x)
+{
 	while(true) {
-		x[k] = (x[k] + 1) % (n); //next value
-		if(x[k] == 0) return;
-		/* check for adjacency matrix edge*/
-		if(aGraph->iGraph[x[k - 1]][x[k]] != 0) {
+		/* counting next value */
+		x[k] = (x[k] + 1) % (n);
+		if(x[k] == 0)
+			return;
+		/* check for adjacency matrix edge */
+		if(graph->iGraph[x[k - 1]][x[k]] != 0) {
 			int j;
-			/*checking for duplicates within array*/
+			/* checking for duplicates within array */
 			for(j = 0; j <= k; j++) {
 				if(x[k] == x[j]) {
 					break;
@@ -98,12 +79,12 @@ void nextVertex(Graph* aGraph, int k, int n, int* x) {
 			if(j == k) {
 				if(k < n - 1) {
 					return;
-					}
-				/*last position must have edge so the cycle is complete*/
-				if((k == n - 1) && (aGraph->iGraph[x[k]][x[0]] != 0)) {
+				}
+				/* last position must have edge so the cycle is complete */
+				if((k == n - 1) && (graph->iGraph[x[k]][x[0]] != 0)) {
 					return;
-					}
 				}
 			}
 		}
 	}
+}

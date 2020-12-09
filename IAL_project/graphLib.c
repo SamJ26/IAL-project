@@ -1,11 +1,19 @@
+﻿/* graphLib.c
+ * Predmet: Algoritmy (IAL) - FIT VUT v Brne
+ * Autor: Samuel Janek
+ * Popis: Zdrojový kód pre graphLib.h (knižnica na načítvanie grafov z textových súborov)
+ * Vytvoril: Samuel Janek, 1.12.2020
+ * Upravil: Marek Bahník, 5.12.2020
+ */
+
 #include "graphLib.h"
 #include "check.h"
 
-/* -----
-** Function for loading graph from text file
-** aFileName - string representing name of file
-** aGraph - structure 
-**/
+/// <summary>
+/// Function for loading graph from text file
+/// </summary>
+/// <param name="aFileName"> - string representing name of file </param>
+/// <param name="aGraph"> - graph structure </param>
 void LoadGraph(char* aFileName, Graph* aGraph)
 {
 	if(!aFileName || !aGraph)
@@ -17,9 +25,10 @@ void LoadGraph(char* aFileName, Graph* aGraph)
 	aGraph->iGraph = AllocMemory(aGraph->iVertices);
 	char ch = 0;
 	rewind(file);
-	for(size_t i = 0; i < aGraph->iVertices; i++)
+	for(int i = 0; i < aGraph->iVertices; i++)
 	{
-		fseek(file, 2, SEEK_CUR);
+		ch = fgetc(file);
+		ch = fgetc(file);
 		ch = fgetc(file);
 		while(ch != '\n')
 		{
@@ -34,17 +43,18 @@ void LoadGraph(char* aFileName, Graph* aGraph)
 	fclose(file);
 }
 
-/* -----
-** Function which returns number of lines in text file.
-** Number of lines is equal to number of vertices in graph.
-** aFile - pointer to opened file
-**/
-size_t VerticesCount(FILE* aFile)
+/// <summary>
+/// Function which returns number of lines in text file.
+/// Number of lines is equal to number of vertices in graph.
+/// </summary>
+/// <param name="aFile"> - pointer to opened file </param>
+/// <returns> Returns number of vertices of graph loaded from text file </returns>
+int VerticesCount(FILE* aFile)
 {
 	if(!aFile)
 		exit(1);
 	char ch = 0;
-	size_t vertices = 0;
+	int vertices = 0;
 	while(!feof(aFile))
 	{
 		ch = fgetc(aFile);
@@ -54,18 +64,18 @@ size_t VerticesCount(FILE* aFile)
 	return vertices;
 }
 
-/* -----
-** Function which allocates memory for graph
-** Graph is stored as 2D array
-** Dimensions of array are equal to number of vertices
-** aVertices - number of vertices in graph 
-**/
-bool** AllocMemory(size_t aVertices)
+/// <summary>
+/// Function which allocates memory for graph
+/// Graph is stored as 2D array and dimensions of array are equal to number of vertices
+/// </summary>
+/// <param name="aVertices"> - number of vertices in graph </param>
+/// <returns> Returns pointer to allocated memory (2D array) </returns>
+bool** AllocMemory(int aVertices)
 {
 	bool** graph = (bool**)calloc(aVertices, sizeof(bool*));
 	if(!graph)
 		exit(1);
-	for(size_t i = 0; i < aVertices; i++)
+	for(int i = 0; i < aVertices; i++)
 	{
 		graph[i] = (bool*)calloc(aVertices, sizeof(bool));
 		if(!graph[i])
@@ -74,30 +84,30 @@ bool** AllocMemory(size_t aVertices)
 	return graph;
 }
 
-/* -----
-** Function for deallocation of memory
-** aGraph - structure
-**/
+/// <summary>
+/// Function for deallocation of memory
+/// </summary>
+/// <param name="aGraph"> - graph structure </param>
 void DeallocMemory(Graph* aGraph)
 {
 	if(!aGraph || !aGraph->iGraph)
 		exit(1);
-	for(size_t i = 0; i < aGraph->iVertices; i++)
+	for(int i = 0; i < aGraph->iVertices; i++)
 		free(aGraph->iGraph[i]);
 	free(aGraph->iGraph);
 }
 
-/* -----
-** Function prints graph as adjacency matrix
-** aGraph - structure
-**/
+/// <summary>
+/// Function prints graph as adjacency matrix
+/// </summary>
+/// <param name="aGraph"> - graph structure </param>
 void PrintGraph(Graph* aGraph)
 {
 	if(!aGraph || !aGraph->iGraph)
 		exit(1);
-	for(size_t i = 0; i < aGraph->iVertices; i++)
+	for(int i = 0; i < aGraph->iVertices; i++)
 	{
-		for(size_t j = 0; j < aGraph->iVertices; j++)
+		for(int j = 0; j < aGraph->iVertices; j++)
 			printf("%d ", aGraph->iGraph[i][j]);
 		printf("\n");
 	}
