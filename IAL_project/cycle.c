@@ -54,7 +54,7 @@ void hamiltonian(Graph* graph, int k, int n, int* x)
 /// Function that checks validity of next vertex.
 /// First it checks for duplicates in array(previous positions).
 /// After finding new value that doesn't appear in 'x' array it checks in adjacency for an edge.
-/// Complexity: n!= O(n ^ n)
+/// Complexity: n!
 /// </summary>
 /// <param name="graph"> - graph structure </param>
 /// <param name="k"> - position on answer array </param>

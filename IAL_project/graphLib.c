@@ -25,7 +25,7 @@ void LoadGraph(char* aFileName, Graph* aGraph)
 	aGraph->iGraph = AllocMemory(aGraph->iVertices);
 	char ch = 0;
 	rewind(file);
-	for(size_t i = 0; i < aGraph->iVertices; i++)
+	for(int i = 0; i < aGraph->iVertices; i++)
 	{
 		ch = fgetc(file);
 		ch = fgetc(file);
@@ -49,12 +49,12 @@ void LoadGraph(char* aFileName, Graph* aGraph)
 /// </summary>
 /// <param name="aFile"> - pointer to opened file </param>
 /// <returns> Returns number of vertices of graph loaded from text file </returns>
-size_t VerticesCount(FILE* aFile)
+int VerticesCount(FILE* aFile)
 {
 	if(!aFile)
 		exit(1);
 	char ch = 0;
-	size_t vertices = 0;
+	int vertices = 0;
 	while(!feof(aFile))
 	{
 		ch = fgetc(aFile);
@@ -70,12 +70,12 @@ size_t VerticesCount(FILE* aFile)
 /// </summary>
 /// <param name="aVertices"> - number of vertices in graph </param>
 /// <returns> Returns pointer to allocated memory (2D array) </returns>
-bool** AllocMemory(size_t aVertices)
+bool** AllocMemory(int aVertices)
 {
 	bool** graph = (bool**)calloc(aVertices, sizeof(bool*));
 	if(!graph)
 		exit(1);
-	for(size_t i = 0; i < aVertices; i++)
+	for(int i = 0; i < aVertices; i++)
 	{
 		graph[i] = (bool*)calloc(aVertices, sizeof(bool));
 		if(!graph[i])
@@ -92,7 +92,7 @@ void DeallocMemory(Graph* aGraph)
 {
 	if(!aGraph || !aGraph->iGraph)
 		exit(1);
-	for(size_t i = 0; i < aGraph->iVertices; i++)
+	for(int i = 0; i < aGraph->iVertices; i++)
 		free(aGraph->iGraph[i]);
 	free(aGraph->iGraph);
 }
@@ -105,9 +105,9 @@ void PrintGraph(Graph* aGraph)
 {
 	if(!aGraph || !aGraph->iGraph)
 		exit(1);
-	for(size_t i = 0; i < aGraph->iVertices; i++)
+	for(int i = 0; i < aGraph->iVertices; i++)
 	{
-		for(size_t j = 0; j < aGraph->iVertices; j++)
+		for(int j = 0; j < aGraph->iVertices; j++)
 			printf("%d ", aGraph->iGraph[i][j]);
 		printf("\n");
 	}

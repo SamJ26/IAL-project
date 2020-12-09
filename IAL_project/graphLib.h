@@ -17,12 +17,12 @@
 typedef struct TGraph
 {
 	bool** iGraph;
-	size_t iVertices;
+	int iVertices;
 } Graph;
 
 void LoadGraph(char* aFileName, Graph* aGraph);
-size_t VerticesCount(FILE* aFile);
-bool** AllocMemory(size_t vertices);
+int VerticesCount(FILE* aFile);
+bool** AllocMemory(int vertices);
 void DeallocMemory(Graph* aGraph);
 void PrintGraph(Graph* aGraph);
 
